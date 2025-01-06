@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F2F Buyer</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e5ec;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        /* Container for the UI */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo styling */
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Logout button */
+        .logout-button {
+            align-self: flex-end;
+            background-color: transparent;
+            border: none;
+            color: #333;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            color: #000;
+        }
+
+        /* Product list styling */
+        .product-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .product-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        }
+
+        .product-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-item h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+            text-align: center;
+        }
+
+        .product-item p {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .place-order-btn {
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .place-order-btn:hover {
+            background-color: #e64a19;
+            transform: scale(1.05);
+        }
+
+        /* Track Orders Button */
+        .track-orders-btn {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #9c27b0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+        }
+
+        .track-orders-btn:hover {
+            background-color: #8e24aa;
+            transform: scale(1.05);
+        }
+
+        /* Order Confirmation Modal */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px; /* Could be more or less, depending on screen size */
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 400px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .logo {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .product-item h3 {
+                font-size: 16px;
+            }
+
+            .product-item p {
+                font-size: 12px;
+            }
+
+            .place-order-btn {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+
+            .track-orders-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Order Confirmation Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="modalClose">&times;</span>
+            <p id="orderMessage">Your order has been placed successfully!</p>
+            <button onclick="closeModal()" style="padding: 10px 20px; margin-top: 15px; border: none; background-color: #4CAF50; color: white; border-radius: 6px; cursor: pointer;">OK</button>
+        </div>
+    </div>
+
+    <!-- UI Container -->
+    <div class="container">
+        <!-- Logout Button -->
+        <button class="logout-button" onclick="logout()">&larr; Logout</button>
+
+        <!-- Logo -->
+        <div class="logo">F2F</div>
+
+        <!-- Product List -->
+        <div class="product-list">
+            <div class="product-item">
+                <img src="images/apples.jpeg" alt="Fresh Apples">
+                <h3>Fresh Apples</h3>
+                <p>Location: Beijing</p>
+                <button class="place-order-btn">Place Order</button>
+            </div>
+            <div class="product-item">
+                <img src="images/carrots.jpeg" alt="Organic Carrots">
+                <h3>Organic Carrots</h3>
+                <p>Location: Shanghai</p>
+                <button class="place-order-btn">Place Order</button>
+            </div>
+            <div class="product-item">
+                <img src="images/eggs.jpeg" alt="Free-Range Eggs">
+                <h3>Free-Range Eggs</h3>
+                <p>Location: Guangzhou</p>
+                <button class="place-order-btn">Place Order</button>
+            </div>
+            <!-- Add more products as needed -->
+        </div>
+
+        <!-- Track Orders Button -->
+        <button class="track-orders-btn" onclick="window.location.href='track_orders_buyer.html'">Track Orders</button>
+    </div>
+
+    <!-- Include buyer.js -->
+    <script src="buyer.js"></script>
+
+    <!-- Inline script for logout function -->
+    <script>
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</body>
+</html>

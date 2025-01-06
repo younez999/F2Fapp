@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F2F Farmer</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e5ec;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        /* Container for the UI */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo styling */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Logout button */
+        .logout-button {
+            align-self: flex-end;
+            background-color: transparent;
+            border: none;
+            color: #333;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            color: #000;
+        }
+
+        /* Listings styling */
+        .listings {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .listing-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .listing-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        }
+
+        .listing-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .listing-item h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .listing-item p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .delete-listing-btn {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .delete-listing-btn:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        /* Add Listing Button */
+        .add-listing-btn {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .add-listing-btn:hover {
+            background-color: #e68900;
+            transform: scale(1.05);
+        }
+
+        /* Track Orders Button */
+        .track-orders-btn {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #9c27b0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+        }
+
+        .track-orders-btn:hover {
+            background-color: #8e24aa;
+            transform: scale(1.05);
+        }
+
+        /* Add Listing Form Modal */
+        #addListingForm {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #addListingForm .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        #addListingForm h2 {
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+        }
+
+        #addListingForm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        #addListingForm input[type="text"],
+        #addListingForm input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        #addListingForm button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #addListingForm .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            margin-right: 10px;
+        }
+
+        #addListingForm .cancel-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 400px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .listing-item h3 {
+                font-size: 14px;
+            }
+
+            .listing-item p {
+                font-size: 12px;
+            }
+
+            .add-listing-btn,
+            .track-orders-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .delete-listing-btn {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            #addListingForm .submit-btn,
+            #addListingForm .cancel-btn {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Add Listing Form Modal -->
+    <div id="addListingForm">
+        <div class="form-container">
+            <h2>Add New Listing</h2>
+            <form id="listingForm">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" required>
+
+                <label for="productLocation">Location:</label>
+                <input type="text" id="productLocation" name="productLocation" placeholder="e.g., Chengdu" required>
+
+                <label for="productImage">Upload Image:</label>
+                <input type="file" id="productImage" name="productImage" accept="image/*" required>
+
+                <button type="submit" class="submit-btn">Add Listing</button>
+                <button type="button" id="cancelBtn" class="cancel-btn">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- UI Container -->
+    <div class="container">
+        <!-- Logout Button -->
+        <button class="logout-button" onclick="logout()">&larr; Logout</button>
+
+        <!-- Logo -->
+        <div class="logo">F2F</div>
+
+        <!-- Listings -->
+        <div class="listings" id="listings">
+            <!-- Listings will be dynamically loaded here by farmer.js -->
+        </div>
+
+        <!-- Add Listing Button -->
+        <button class="add-listing-btn">Add New Listing</button>
+
+        <!-- Track Orders Button -->
+        <button class="track-orders-btn" onclick="window.location.href='track_orders_farmer.html'">Track Orders</button>
+    </div>
+
+    <!-- Include farmer.js -->
+    <script src="farmer.js"></script>
+
+    <!-- Inline script for logout function -->
+    <script>
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</body>
+</html>

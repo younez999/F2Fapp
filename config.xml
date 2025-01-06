@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget 
+    id="com.yourdomain.f2fapp" 
+    version="1.0.0" 
+    xmlns="http://www.w3.org/ns/widgets" 
+    xmlns:cdv="http://cordova.apache.org/ns/1.0"
+>
+
+    <!-- App Name / Description / Author -->
+    <name>F2FApp</name>
+    <description>Sample Apache Cordova App</description>
+    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
+        Apache Cordova Team
+    </author>
+
+    <!-- Main entry point -->
+    <content src="index.html" />
+
+    <!-- Intent allow lists -->
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+
+    <!-- 
+        PLATFORM-SPECIFIC ICONS FOR ANDROID
+        Adjust src paths and add/remove entries based on the icon files you’ve created.
+        Example paths assume your icons are in resources/android/icon/ folder.
+    -->
+    <platform name="android">
+        <!-- ldpi (36x36) -->
+        <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi" />
+        <!-- mdpi (48x48) -->
+        <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi" />
+        <!-- hdpi (72x72) -->
+        <icon src="resources/android/icon/drawable-hdpi-icon.png" density="hdpi" />
+        <!-- xhdpi (96x96) -->
+        <icon src="resources/android/icon/drawable-xhdpi-icon.png" density="xhdpi" />
+        <!-- xxhdpi (144x144) -->
+        <icon src="resources/android/icon/drawable-xxhdpi-icon.png" density="xxhdpi" />
+        <!-- xxxhdpi (192x192) -->
+        <icon src="resources/android/icon/drawable-xxxhdpi-icon.png" density="xxxhdpi" />
+    </platform>
+
+</widget>

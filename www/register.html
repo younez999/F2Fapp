@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F2F Register</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        /* Container for the UI */
+        .container {
+            width: 100%;
+            max-width: 400px; /* Typical mobile screen width */
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* Logo styling */
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        /* Registration form styling */
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .register-form input,
+        .register-form select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .register-form button {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .register-form button:hover {
+            background-color: #007bb5;
+            transform: scale(1.05);
+        }
+
+        /* Login link */
+        .login-link {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .login-link a {
+            color: #008CBA;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error message styling */
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Success message styling */
+        .success {
+            color: green;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 400px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .logo {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+
+            .register-form input,
+            .register-form select,
+            .register-form button {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- UI Container -->
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">F2F</div>
+
+        <!-- Success/Error Message -->
+        <div id="registerMessage" class=""></div>
+
+        <!-- Registration Form -->
+        <form class="register-form" id="registerForm">
+            <input type="email" id="registerEmail" name="registerEmail" placeholder="Email" required>
+            <input type="password" id="registerPassword" name="registerPassword" placeholder="Password" required>
+            <select id="registerRole" name="registerRole" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="buyer">Buyer</option>
+                <option value="farmer">Farmer</option>
+            </select>
+            <button type="submit">Register</button>
+        </form>
+
+        <!-- Login Link -->
+        <div class="login-link">
+            Already have an account? <a href="index.html">Login here</a>
+        </div>
+    </div>
+
+    <!-- Include register.js -->
+    <script src="register.js"></script>
+
+</body>
+</html>

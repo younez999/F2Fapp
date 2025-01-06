@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F2F Farmer - Add Listing</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e5ec;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        /* Container for the UI */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo styling */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Back button */
+        .back-button {
+            align-self: flex-start;
+            background-color: transparent;
+            border: none;
+            color: #333;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: #000;
+        }
+
+        /* Form styling */
+        .form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form label {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .form input,
+        .form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            padding: 12px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 400px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .submit-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- UI Container -->
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="window.location.href='farmer.html'">&larr; Back</button>
+
+        <!-- Logo -->
+        <div class="logo">F2F - Add Listing</div>
+
+        <!-- Form -->
+        <form class="form" action="#" method="POST">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required>
+
+            <label for="productDescription">Description:</label>
+            <textarea id="productDescription" name="productDescription" required></textarea>
+
+            <label for="productLocation">Location:</label>
+            <input type="text" id="productLocation" name="productLocation" placeholder="e.g., Beijing" required>
+
+            <label for="productImage">Upload Image:</label>
+            <input type="file" id="productImage" name="productImage" accept="image/*" required>
+
+            <button type="submit" class="submit-btn">Submit Listing</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
